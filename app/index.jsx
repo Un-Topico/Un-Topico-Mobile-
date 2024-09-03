@@ -11,7 +11,7 @@ const Screen0 = () => {
   }
 
   function handleLogIn() {
-    console.log('LogIn Pressed');
+    console.log('/SignUp_LogIn/logIn');
   }
 
   return (

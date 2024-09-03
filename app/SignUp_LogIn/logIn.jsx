@@ -3,14 +3,14 @@ import { View, TouchableOpacity, Text, TextInput, StyleSheet, Image, KeyboardAvo
 import { Link, useRouter } from 'expo-router';
 
 
-const signUp = ({ 
+const logIn = ({ 
   appName= "Untopico", 
   logoSource = require('../../images/logo.png'), 
   backgroundSource = require('../../images/backgroundImage.jpg'),
 
-  title2 = "Crea tu cuenta",
-  question1 = "Ya tienes cuenta",
-  answer1 = "Iniciar Sesión",
+  title2 = "Iniciar Sesión",
+  question1 = "Aún no tienes cuenta?",
+  answer1 = "Crea tu cuenta",
 
 }) => {
   const [email, setEmail] = useState('');
@@ -18,12 +18,12 @@ const signUp = ({
 
   const router = useRouter();
 
-  function handleSignUp() {
+  function handleGreenB() {
     router.push('../Index/Home'); // Navega a la pantalla de registro
   }
 
-  function handleLogIn() {
-    router.push('/SignUp_LogIn/logIn'); // Navega a la pantalla de registro
+  function handleLink() {
+    router.push('/SignUp_LogIn/signUp'); // Navega a la pantalla de registro
   }
 
   return (
@@ -65,7 +65,7 @@ const signUp = ({
               </Text>
             </View>
             <View style={styles.ViewButton}>
-              <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+              <TouchableOpacity style={styles.button} onPress={handleGreenB}>
                 <Text style={styles.buttonText}>Crear</Text>
               </TouchableOpacity>
             </View>
@@ -73,7 +73,7 @@ const signUp = ({
             <View>
               <Text style={styles.text1}>
                 {question1}{' '}
-                <Text style={styles.linkText} onPress={handleLogIn}>
+                <Text style={styles.linkText} onPress={handleLink}>
                   {answer1}
                 </Text>
               </Text>
@@ -177,4 +177,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default signUp;
+export default logIn;
