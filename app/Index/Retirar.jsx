@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
+// Constantes para los textos
+const TITLE = 'Retirar';
+const EMAIL_PLACEHOLDER = 'Ingrese su correo electrónico';
+const MONTO_PLACEHOLDER = 'Ingrese el monto';
+const DESCRIPCION_PLACEHOLDER = 'Descripción breve (opcional)';
+const BUTTON_TEXT = 'Realizar Retiro';
+
 const Retirar = () => {
   const [email, setEmail] = useState('');
   const [monto, setMonto] = useState('');
   const [descripcion, setDescripcion] = useState('');
 
+  // Función para manejar el retiro
   const handleRetiro = () => {
     // Lógica para manejar el retiro
     console.log(`Correo: ${email}, Monto: ${monto}, Descripción: ${descripcion}`);
@@ -17,12 +25,12 @@ const Retirar = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Retirar</Text>
+      <Text style={styles.title}>{TITLE}</Text>
 
       {/* Campo de correo electrónico */}
       <TextInput
         style={styles.input}
-        placeholder="Ingrese su correo electrónico"
+        placeholder={EMAIL_PLACEHOLDER}
         placeholderTextColor="#707070"
         value={email}
         onChangeText={(text) => setEmail(text)}
@@ -32,7 +40,7 @@ const Retirar = () => {
       {/* Campo de monto */}
       <TextInput
         style={styles.input}
-        placeholder="Ingrese el monto"
+        placeholder={MONTO_PLACEHOLDER}
         placeholderTextColor="#707070"
         value={monto}
         onChangeText={(text) => setMonto(text)}
@@ -42,7 +50,7 @@ const Retirar = () => {
       {/* Campo de descripción */}
       <TextInput
         style={[styles.input, styles.textArea]}
-        placeholder="Descripción breve (opcional)"
+        placeholder={DESCRIPCION_PLACEHOLDER}
         placeholderTextColor="#707070"
         value={descripcion}
         onChangeText={(text) => setDescripcion(text)}
@@ -52,7 +60,7 @@ const Retirar = () => {
 
       {/* Botón para realizar el retiro */}
       <TouchableOpacity style={styles.button} onPress={handleRetiro}>
-        <Text style={styles.buttonText}>Realizar Retiro</Text>
+        <Text style={styles.buttonText}>{BUTTON_TEXT}</Text>
       </TouchableOpacity>
     </View>
   );

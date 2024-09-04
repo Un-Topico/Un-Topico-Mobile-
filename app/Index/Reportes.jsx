@@ -1,59 +1,45 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
+
+// Datos de ejemplo para las transacciones
+const transactionData = [
+  {
+    id: '1234567890abcdef1234567890abcdef',
+    type: 'Depósito',
+    amount: '$1,000.00',
+    date: '01/09/2024',
+    description: 'Depósito en efectivo realizado en sucursal',
+  },
+  {
+    id: 'abcdef1234567890abcdef1234567890',
+    type: 'Retiro',
+    amount: '$500.00',
+    date: '03/09/2024',
+    description: 'Retiro en cajero automático',
+  },
+  // Puedes agregar más transacciones si lo deseas
+];
 
 const Reportes = () => {
-  const [email, setEmail] = useState('');
-  const [monto, setMonto] = useState('');
-  const [descripcion, setDescripcion] = useState('');
-
-  const handleRetiro = () => {
-    // Lógica para manejar el retiro
-    console.log(`Correo: ${email}, Monto: ${monto}, Descripción: ${descripcion}`);
-    // Reinicia los campos después del retiro
-    setEmail('');
-    setMonto('');
-    setDescripcion('');
-  };
+  // Función para renderizar cada transacción
+  const renderTransaction = ({ item }) => (
+    <View style={styles.transactionContainer}>
+      <Text style={styles.transactionId}>ID: {item.id}</Text>
+      <Text style={styles.transactionType}>Tipo: {item.type}</Text>
+      <Text style={styles.transactionAmount}>Monto: {item.amount}</Text>
+      <Text style={styles.transactionDate}>Fecha: {item.date}</Text>
+      <Text style={styles.transactionDescription}>Descripción: {item.description}</Text>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Reportes</Text>
-
-      {/* Campo de correo electrónico */}
-      <TextInput
-        style={styles.input}
-        placeholder="Ingrese su correo electrónico"
-        placeholderTextColor="#707070"
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-        keyboardType="email-address"
+      <Text style={styles.title}>Historial de Transacciones</Text>
+      <FlatList
+        data={transactionData}
+        renderItem={renderTransaction}
+        keyExtractor={(item) => item.id}
       />
-
-      {/* Campo de monto */}
-      <TextInput
-        style={styles.input}
-        placeholder="Ingrese el monto"
-        placeholderTextColor="#707070"
-        value={monto}
-        onChangeText={(text) => setMonto(text)}
-        keyboardType="numeric"
-      />
-
-      {/* Campo de descripción */}
-      <TextInput
-        style={[styles.input, styles.textArea]}
-        placeholder="Descripción breve (opcional)"
-        placeholderTextColor="#707070"
-        value={descripcion}
-        onChangeText={(text) => setDescripcion(text)}
-        multiline
-        numberOfLines={3}
-      />
-
-      {/* Botón para realizar el retiro */}
-      <TouchableOpacity style={styles.button} onPress={handleRetiro}>
-        <Text style={styles.buttonText}>Realizar Retiro</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -63,7 +49,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#FFFFFF',
-    justifyContent: 'center',
   },
   title: {
     fontSize: 24,
@@ -71,31 +56,38 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
-  input: {
-    height: 50,
-    borderColor: '#707070',
-    borderWidth: 1,
-    borderRadius: 5,
+  transactionContainer: {
+    padding: 15,
     marginBottom: 15,
-    paddingHorizontal: 10,
-    fontSize: 16,
-    color: '#000000',
-  },
-  textArea: {
-    height: 100,
-    textAlignVertical: 'top', // Alinea el texto al principio del TextInput cuando es multilinea
-  },
-  button: {
-    backgroundColor: '#4FD290',
-    paddingVertical: 15,
     borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 10,
+    borderColor: '#DDD',
+    borderWidth: 1,
+    backgroundColor: '#F9F9F9',
   },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
+  transactionId: {
+    fontSize: 14,
+    color: '#333',
+    marginBottom: 5,
+  },
+  transactionType: {
+    fontSize: 16,
     fontWeight: 'bold',
+    color: '#000',
+    marginBottom: 5,
+  },
+  transactionAmount: {
+    fontSize: 16,
+    color: '#000',
+    marginBottom: 5,
+  },
+  transactionDate: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 5,
+  },
+  transactionDescription: {
+    fontSize: 14,
+    color: '#666',
   },
 });
 
