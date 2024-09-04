@@ -1,12 +1,15 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import { Button } from 'react-native-web';
+import { View, Text, ImageBackground, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-native';
+import { useRouter } from 'expo-router';
 
 // Obtiene las dimensiones de la pantalla
 const { width } = Dimensions.get('window');
 
 const index = () => {
-  // Datos de ejemplo de la tarjeta
+  const appName = "Untopico";
+  const logoSource = require('../../images/logo.png');
+
+  // TARJETA  
   const cardData = {
     balance: '$5,000.00',
     cardNumber: '1234 5678 9012 3456',
@@ -15,17 +18,32 @@ const index = () => {
     expiryDate: '12/26',
   };
 
+  const router = useRouter();
+
+  function handleRetirar() {
+    router.push('/Index/Retirar'); // Navega a la pantalla de retiros
+  }
+  function handleDepositar() {
+    router.push('/Index/Depositar'); // Navega a la pantalla de retiros
+  }
+  function handleReportes() {
+    router.push('/Index/Reportes'); // Navega a la pantalla de retiros
+  }
+
   return (
     <View style={styles.container}>
+      <View style={styles.head}>
+        <Image style={styles.logo} source={logoSource} />
+        <Text style={styles.headtitle}>{appName}</Text>
+      </View>
+
       {/* Tarjeta de débito */}
       <View style={styles.card}>
         <ImageBackground
           source={require('../../images/tarjeta.png')}
           style={styles.cardImage}
           imageStyle={styles.cardImageStyle}
-        >
-        </ImageBackground>
-
+        />
         <View style={styles.cardContent}>
           {/* Saldo */}
           <View style={styles.balanceTextContainer}>
@@ -45,27 +63,25 @@ const index = () => {
               <Text style={styles.text_cvv_expire}>{`Exp: ${cardData.expiryDate}`}</Text>
             </View>
           </View>
-
         </View>
       </View>
 
       <View style={styles.Buttoncontainer}>
         {/* Botón de Retirar */}
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Retirar</Text>
+        <TouchableOpacity style={styles.button} onPress={handleRetirar}>
+          <Text style={styles.buttonText} >Retirar</Text>
         </TouchableOpacity>
 
         {/* Botón de Reportes */}
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Reportes</Text>
+        <TouchableOpacity style={styles.button} onPress={handleReportes}>
+          <Text style={styles.buttonText} >Reportes</Text>
         </TouchableOpacity>
 
         {/* Botón de Depositar */}
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Depositar</Text>
+        <TouchableOpacity style={styles.button} onPress={handleDepositar}>
+          <Text style={styles.buttonText} >Depositar</Text>
         </TouchableOpacity>
       </View>
-
     </View>
   );
 };
@@ -91,7 +107,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 5,
     //backgroundColor: "red",
-    marginTop: 100,
+    marginTop: 120,
   },
   cardContent: {
     // backgroundColor:'yellow',
@@ -165,7 +181,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', // Centra el texto horizontalmente
     justifyContent: 'center', // Centra el texto verticalmente
     borderRadius: 10, // Bordes redondeados
-    marginBottom: 10, // Espacio inferior entre filas de botones
+    marginBottom: 20, // Espacio inferior entre filas de botones
     borderWidth: 4,
     borderColor: '#4FD290',
     shadowColor: '#000',
@@ -178,7 +194,29 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'black', // Color del texto
     textAlign: 'center',
-  }
+  },
+
+  head: {
+    position: 'absolute', // Para colocar el contenedor en la parte superior de la pantalla
+    top: 25, // Establece la posición en la parte superior
+    width: '100%', // Para asegurarte de que se alinee horizontalmente
+    alignItems: 'center', // Centra los elementos horizontalmente
+    justifyContent: 'center', // Centra los elementos verticalmente dentro del contenedor
+    paddingTop: 35, // Espacio adicional en la parte superior
+    paddingBottom: 10, // Espacio adicional en la parte inferior para separar del contenido principal
+    flexDirection: 'row', // Coloca los elementos en línea horizontal
+  },
+  logo: {
+    width: 25, // Ancho pequeño para la imagen
+    height: 25, // Altura pequeña para la imagen
+    marginBottom: 5, // Espacio entre la imagen y el texto
+    marginRight: 10,
+  },
+  headtitle: {
+    fontSize: 18, // Tamaño del texto
+    fontWeight: 'bold', // Texto en negrita
+    color: '#000', // Color del texto
+  },
 });
 
 export default index;
