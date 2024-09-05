@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, TextInput, StyleSheet, Image, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
+import { View, TouchableOpacity, Text, TextInput, StyleSheet, Image, KeyboardAvoidingView, ScrollView, Platform, Alert } from 'react-native';
 import { Link, useRouter } from 'expo-router';
+import { createUserWithEmailAndPassword } from 'firebase/auth'; // Importa la función para registrar usuarios
+import { auth } from '../firebaseConfig'; // Importa la configuración de Firebase
 
-
-const signUp = ({ 
+const SignUp = ({ 
   appName= "Untopico", 
   logoSource = require('../../images/logo.png'), 
   backgroundSource = require('../../images/backgroundImage.jpg'),
@@ -18,12 +19,19 @@ const signUp = ({
 
   const router = useRouter();
 
-  function handleSignUp() {
-    router.push('../Index/Home'); // Navega a la pantalla de registro
+  async function handleSignUp() {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      Alert.alert("Registro exitoso", "Usuario registrado correctamente");
+      router.push('../Index/Home'); // Navega a la pantalla de inicio
+    } catch (error) {
+      Alert.alert("Error en el registro", error.message);
+    }
   }
 
   function handleLogIn() {
-    router.push('/SignUp_LogIn/logIn'); // Navega a la pantalla de registro
+    router.push('/SignUp_LogIn/logIn'); // Navega a la pantalla de inicio de sesión
   }
 
   return (
@@ -177,4 +185,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default signUp;
+export default SignUp;
