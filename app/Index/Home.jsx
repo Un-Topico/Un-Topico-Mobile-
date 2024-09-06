@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 // Obtiene las dimensiones de la pantalla
 const { width } = Dimensions.get('window');
@@ -69,16 +71,19 @@ const index = () => {
       <View style={styles.Buttoncontainer}>
         {/* Botón de Retirar */}
         <TouchableOpacity style={styles.button} onPress={handleRetirar}>
+          <Icon name="rocket" size={40} color="#900" />
           <Text style={styles.buttonText} >Retirar</Text>
         </TouchableOpacity>
 
         {/* Botón de Reportes */}
         <TouchableOpacity style={styles.button} onPress={handleReportes}>
+          <Icon name="file-text-o" size={40} color="#900" />
           <Text style={styles.buttonText} >Reportes</Text>
         </TouchableOpacity>
 
         {/* Botón de Depositar */}
         <TouchableOpacity style={styles.button} onPress={handleDepositar}>
+          <Icon name="rocket" size={40} color="#900" />
           <Text style={styles.buttonText} >Depositar</Text>
         </TouchableOpacity>
       </View>
@@ -92,7 +97,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f2f2f2',
   },
 
   // Estilo de la tarjeta
@@ -182,8 +187,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center', // Centra el texto verticalmente
     borderRadius: 10, // Bordes redondeados
     marginBottom: 20, // Espacio inferior entre filas de botones
-    borderWidth: 4,
-    borderColor: '#4FD290',
+    //borderWidth: 4,
+    //borderColor: '#4FD290',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
@@ -194,6 +199,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'black', // Color del texto
     textAlign: 'center',
+    marginTop: 25,
   },
 
   head: {
