@@ -1,30 +1,37 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, TextInput, StyleSheet, Image, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
-import { Link, useRouter } from 'expo-router';
-
+import { View, TouchableOpacity, Text, TextInput, StyleSheet, Image, KeyboardAvoidingView, ScrollView, Platform, Alert } from 'react-native';
+import { useRouter } from 'expo-router';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebaseConfig'; // Importa la configuración de Firebase
 
 const logIn = ({ 
   appName= "Untopico", 
   logoSource = require('../../images/logo.png'), 
   backgroundSource = require('../../images/backgroundImage.jpg'),
-
   title2 = "Iniciar Sesión",
   question1 = "Aún no tienes cuenta?",
   answer1 = "Crea tu cuenta",
-
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const router = useRouter();
 
-  function handleGreenB() {
-    router.push('../Index/Home'); // Navega a la pantalla de registro
-  }
+  const handleLogIn = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        router.push('../Index/Home'); // Navega a la pantalla de inicio
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        Alert.alert('Error', errorMessage); // Muestra un mensaje de error
+      });
+  };
 
-  function handleLink() {
+  const handleLink = () => {
     router.push('/SignUp_LogIn/signUp'); // Navega a la pantalla de registro
-  }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -65,8 +72,8 @@ const logIn = ({
               </Text>
             </View>
             <View style={styles.ViewButton}>
-              <TouchableOpacity style={styles.button} onPress={handleGreenB}>
-                <Text style={styles.buttonText}>Crear</Text>
+              <TouchableOpacity style={styles.button} onPress={handleLogIn}>
+                <Text style={styles.buttonText}>Iniciar Sesión</Text>
               </TouchableOpacity>
             </View>
 
@@ -85,6 +92,7 @@ const logIn = ({
     </KeyboardAvoidingView>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

@@ -11,7 +11,7 @@ const Screen0 = () => {
   }
 
   function handleLogIn() {
-    console.log('/SignUp_LogIn/logIn');
+    router.push('/SignUp_LogIn/logIn');
   }
 
   return (
