@@ -4,10 +4,11 @@ import { Link, useRouter } from 'expo-router';
 import { createUserWithEmailAndPassword } from 'firebase/auth'; // Importa la función para registrar usuarios
 import { auth } from '../firebaseConfig'; // Importa la configuración de Firebase
 
-const SignUp = ({ 
-  appName= "Untopico", 
-  logoSource = require('../../images/logo.png'), 
+const SignUp = ({
+  appName = "Untopico",
+  logoSource = require('../../images/logo.png'),
   backgroundSource = require('../../images/backgroundImage.jpg'),
+  googlesource = require('../../images/Google.png'),
 
   title2 = "Crea tu cuenta",
   question1 = "Ya tienes cuenta",
@@ -67,11 +68,7 @@ const SignUp = ({
               onChangeText={(text) => setPassword(text)}
               value={password}
             />
-            <View style={styles.ViewForgotPassword}>
-              <Text style={styles.forgotPasswordText}>
-                Forgot password?
-              </Text>
-            </View>
+
             <View style={styles.ViewButton}>
               <TouchableOpacity style={styles.button} onPress={handleSignUp}>
                 <Text style={styles.buttonText}>Crear</Text>
@@ -85,6 +82,19 @@ const SignUp = ({
                   {answer1}
                 </Text>
               </Text>
+            </View>
+
+            <View style={styles.dividerContainer}>
+              <View style={styles.line} />
+              <Text style={styles.orText}>o</Text>
+              <View style={styles.line} />
+            </View>
+
+            <View style={styles.ViewButton}>
+              <TouchableOpacity style={styles.button_Google}>
+                <Image style={styles.Google_img} source={googlesource} />
+                <Text style={styles.buttonText_Google}>Continuar con Google</Text>
+              </TouchableOpacity>
             </View>
 
           </View>
@@ -142,12 +152,46 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     fontSize: 16,
   },
+  dividerContainer: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    marginVertical: 20, // Espacio vertical alrededor del contenedor
+  },
+  line: {
+    flex: 1, // Hace que la línea se expanda para ocupar el espacio disponible
+    height: 1, // Grosor de la línea
+    backgroundColor: '#ccc', // Color de la línea
+  },
+  orText: {
+    marginHorizontal: 10, // Espacio horizontal alrededor del texto
+    fontSize: 14, 
+    color: '#999', 
+  },
+  button_Google: {
+    flexDirection: 'row', // Para colocar elementos en una fila
+    alignItems: 'center', // Centra los elementos verticalmente
+    justifyContent: 'center', // Centra el contenido horizontalmente dentro del botón
+    padding: 10,
+    width: '100%',
+    height: 60,
+    backgroundColor: '#EFEFEF',
+    borderRadius: 5,
+  },
+  Google_img: {
+    width: 20,
+    height: 20,
+    marginRight: 10, // Espacio entre la imagen y el texto
+  },
+  buttonText_Google: {
+    textAlign: 'center',
+    color: '#000',
+    fontSize: 16,
+  },
   button: {
     backgroundColor: '#4FD290',
     padding: 10,
     borderRadius: 25,
     borderWidth: 1,
-    marginTop: 20,
     width: '100%',
     height: 60,
     alignItems: 'center',
@@ -157,13 +201,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
-  },
-  ViewForgotPassword: {
-    alignItems: 'center',
-  },
-  forgotPasswordText: {
-    fontSize: 16,
-    textDecorationLine: 'underline',
   },
   linkText: {
     color: 'blue',

@@ -52,7 +52,7 @@ const Depositar = () => {
 
       {/* Botón para realizar el retiro */}
       <TouchableOpacity style={styles.button} onPress={handleRetiro}>
-        <Text style={styles.buttonText}>Realizar Retiro</Text>
+        <Text style={styles.buttonText}>Depositar</Text>
       </TouchableOpacity>
     </View>
   );

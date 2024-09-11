@@ -11,6 +11,9 @@ const logIn = ({
   title2 = "Iniciar Sesión",
   question1 = "Aún no tienes cuenta?",
   answer1 = "Crea tu cuenta",
+  googlesource = require('../../images/Google.png'),
+  forgotText = "¿Olvidaste tu contraseña?",
+
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,6 +34,11 @@ const logIn = ({
 
   const handleLink = () => {
     router.push('/SignUp_LogIn/signUp'); // Navega a la pantalla de registro
+  };
+
+  const handleForgotLink = () => {
+    router.push('/SignUp_LogIn/forgotPassword');
+
   };
 
   return (
@@ -66,11 +74,14 @@ const logIn = ({
               onChangeText={(text) => setPassword(text)}
               value={password}
             />
+
             <View style={styles.ViewForgotPassword}>
-              <Text style={styles.forgotPasswordText}>
-                Forgot password?
+              <Text style={styles.forgotPasswordText} onPress={handleForgotLink}>
+                {forgotText}
               </Text>
             </View>
+
+
             <View style={styles.ViewButton}>
               <TouchableOpacity style={styles.button} onPress={handleLogIn}>
                 <Text style={styles.buttonText}>Iniciar Sesión</Text>
@@ -84,6 +95,19 @@ const logIn = ({
                   {answer1}
                 </Text>
               </Text>
+            </View>
+
+            <View style={styles.dividerContainer}>
+              <View style={styles.line} />
+              <Text style={styles.orText}>o</Text>
+              <View style={styles.line} />
+            </View>
+
+            <View style={styles.ViewButton}>
+              <TouchableOpacity style={styles.button_Google}>
+                <Image style={styles.Google_img} source={googlesource} />
+                <Text style={styles.buttonText_Google}>Continuar con Google</Text>
+              </TouchableOpacity>
             </View>
 
           </View>
@@ -122,7 +146,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 100,
     height: 100,
-    marginTop: 80,
+    marginTop: 30,
   },
   inputContainer: {
     width: '90%',
@@ -140,6 +164,41 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: '#707070',
     borderWidth: 1,
+    fontSize: 16,
+  },
+  dividerContainer: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    marginVertical: 20, // Espacio vertical alrededor del contenedor
+  },
+  line: {
+    flex: 1, // Hace que la línea se expanda para ocupar el espacio disponible
+    height: 1, // Grosor de la línea
+    backgroundColor: '#ccc', // Color de la línea
+  },
+  orText: {
+    marginHorizontal: 10, // Espacio horizontal alrededor del texto
+    fontSize: 14, 
+    color: '#999', 
+  },
+  button_Google: {
+    flexDirection: 'row', // Para colocar elementos en una fila
+    alignItems: 'center', // Centra los elementos verticalmente
+    justifyContent: 'center', // Centra el contenido horizontalmente dentro del botón
+    padding: 10,
+    width: '100%',
+    height: 60,
+    backgroundColor: '#EFEFEF',
+    borderRadius: 5,
+  },
+  Google_img: {
+    width: 20,
+    height: 20,
+    marginRight: 10, // Espacio entre la imagen y el texto
+  },
+  buttonText_Google: {
+    textAlign: 'center',
+    color: '#000',
     fontSize: 16,
   },
   button: {
