@@ -1,30 +1,58 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Profile = () => {
-  // Definiciones de los nombres de las opciones con sus imágenes correspondientes
+  
+  const iconSize = 30;
+  const iconColor = "#000000";
+  
+  // Definiciones de los nombres de las opciones con sus íconos correspondientes
   const screenOptions = {
     Información_Personal: {
       displayName: 'Información Personal',
-      imageUrl: require('../../images/logo.png'), // URL de la imagen asociada
+      iconName: 'address-book-o',
     },
     Cambiar_NIP: {
       displayName: 'Cambiar NIP',
-      imageUrl: require('../../images/logo.png'),
+      iconName: 'circle',
     },
     Cerrar_Sesión: {
       displayName: 'Cerrar Sesión',
-      imageUrl: require('../../images/logo.png'),
+      iconName: 'sign-out',
     },
-    // Puedes añadir más opciones aquí con sus respectivas imágenes
+    // Se pueden agregar más elementos aquí
+  };
+
+  const screenOptions_Settings = {
+    Preguntas_Frecuentes: {
+      displayName: 'Preguntas Frecuentes',
+      iconName: 'question-circle-o',
+    },
+    Chat_Soporte: {
+      displayName: 'Chat con Soporte',
+      iconName: 'commenting-o',
+    },
   };
 
   // Renderiza cada opción de configuración de manera dinámica
-  const renderOptions = () => {
-    return Object.entries(screenOptions).map(([screenName, { displayName, imageUrl }]) => (
+  const renderProfileOptions = () => {
+    return Object.entries(screenOptions).map(([screenName, { displayName, iconName }]) => (
       <TouchableOpacity key={screenName} style={styles.button}>
         <View style={styles.option}>
-          <Image style={styles.optionIcon} source={imageUrl} />
+          <Icon name={iconName} size={iconSize} color={iconColor} style={styles.optionIcon}/>
+          <Text style={styles.optionText}>{displayName}</Text>
+        </View>
+      </TouchableOpacity>
+    ));
+  };
+
+  // Renderiza cada opción de configuración de manera dinámica
+  const renderSettingsOptions = () => {
+    return Object.entries(screenOptions_Settings).map(([screenName, { displayName, iconName }]) => (
+      <TouchableOpacity key={screenName} style={styles.button}>
+        <View style={styles.option}>
+          <Icon name={iconName} size={iconSize} color={iconColor} style={styles.optionIcon}/>
           <Text style={styles.optionText}>{displayName}</Text>
         </View>
       </TouchableOpacity>
@@ -33,14 +61,22 @@ const Profile = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title0}>Profile</Text>
+      <Text style={styles.title0}>Settings</Text>
+
+      
       <View style={styles.ViewProfImage}>
-        <Image style={styles.ImageProfile} source={require('../../images/logo.png')} />
+        <Icon name="user-circle-o" size={100} color={iconColor} style={styles.ImageProfile} />
         <Text style={styles.title}>Juancho Pérez</Text>
       </View>
+
       <View style={styles.ViewSettings}>
-        <Text style={styles.title2}>Settings</Text>
-        {renderOptions()}
+        <Text style={styles.title2}>Profile</Text>
+        {renderProfileOptions()}
+      </View>
+
+      <View style={styles.ViewSupport}>
+        <Text style={styles.title2}>Soporte</Text>
+        {renderSettingsOptions()}
       </View>
     </View>
   );
@@ -59,13 +95,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   ViewProfImage: {
-    position: 'absolute',
-    top: '18%',
+    position: 'relative',
+    top: '4%',
     left: '10%',
     width: '100%',
   },
   ImageProfile: {
-    borderRadius: 50,
     width: 100,
     height: 100,
   },
@@ -77,14 +112,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   ViewSettings: {
-    position: 'absolute',
-    top: '32%',
+    position: 'relative',
+    top: '8%',
+    left: '10%',
+  },
+  ViewSupport: {
+    position: 'relative',
+    top: '8%',
     left: '10%',
   },
   title2: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 15,
     marginTop: 15,
   },
   option: {
@@ -93,14 +133,12 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   optionIcon: {
-    width: 30,
-    height: 30,
     marginRight: 10,
     marginLeft: 10,
   },
   optionText: {
     fontSize: 18,
-    marginLeft: 5,
+    marginLeft: 8,
   },
 });
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, ImageBackground, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Card from '../components/card';
 
 
 // Obtiene las dimensiones de la pantalla
@@ -13,25 +14,32 @@ const index = () => {
 
   // TARJETA  
   const cardData = {
-    balance: '$5,000.00',
+    balance: '$100,000,000.00',
+    cardType: 'Corriente',
     cardNumber: '1234 5678 9012 3456',
     cardHolder: 'John Doe',
     cvv: '123',
     expiryDate: '12/26',
   };
 
+  // Navegación entre ventanas
+
   const router = useRouter();
 
-  function handleRetirar() {
-    router.push('/Index/Retirar'); // Navega a la pantalla de retiros
-  }
+  
   function handleDepositar() {
-    router.push('/Index/Depositar'); // Navega a la pantalla de retiros
+    router.push('/Index/Depositar'); 
+  }
+  function handleTransferir() {
+    router.push('/Index/Transferir');
+  }
+  function handleRetirar() {
+    router.push('/Index/Retirar'); 
   }
   function handleReportes() {
-    router.push('/Index/Reportes'); // Navega a la pantalla de retiros
+    router.push('/Index/Reportes'); 
   }
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.head}>
@@ -39,39 +47,24 @@ const index = () => {
         <Text style={styles.headtitle}>{appName}</Text>
       </View>
 
-      {/* Tarjeta de débito */}
-      <View style={styles.card}>
-        <ImageBackground
-          source={require('../../images/tarjeta.png')}
-          style={styles.cardImage}
-          imageStyle={styles.cardImageStyle}
-        />
-        <View style={styles.cardContent}>
-          {/* Saldo */}
-          <View style={styles.balanceTextContainer}>
-            <Text style={styles.balanceText}>{cardData.balance}</Text>
-          </View>
-
-          <View style={styles.cardInfoContainer}>
-            {/* Número de la tarjeta y Nombre del propietario*/}
-            <View style={styles.view_cardNumber_Holder}>
-              <Text style={styles.text_cardNumber_Holder}>{cardData.cardNumber}</Text>
-              <Text style={styles.text_cardNumber_Holder}>{cardData.cardHolder}</Text>
-            </View>
-
-            {/* CVV y Fecha de expiración */}
-            <View style={styles.view_cvv_expire}>
-              <Text style={styles.text_cvv_expire}>{`CVV: ${cardData.cvv}`}</Text>
-              <Text style={styles.text_cvv_expire}>{`Exp: ${cardData.expiryDate}`}</Text>
-            </View>
-          </View>
-        </View>
-      </View>
+      <Card />
 
       <View style={styles.Buttoncontainer}>
+        {/* Botón de Depositar */}
+        <TouchableOpacity style={styles.button} onPress={handleDepositar}>
+          <Icon name="download" size={40} color="#900" />
+          <Text style={styles.buttonText} >Depositar</Text>
+        </TouchableOpacity>
+
+        {/* Botón de Transferir */}
+        <TouchableOpacity style={styles.button} onPress={handleTransferir}>
+          <Icon name="money" size={40} color="#900" />
+          <Text style={styles.buttonText} >Transferir</Text>
+        </TouchableOpacity>
+
         {/* Botón de Retirar */}
         <TouchableOpacity style={styles.button} onPress={handleRetirar}>
-          <Icon name="rocket" size={40} color="#900" />
+          <Icon name="share-square-o" size={40} color="#900" />
           <Text style={styles.buttonText} >Retirar</Text>
         </TouchableOpacity>
 
@@ -80,12 +73,7 @@ const index = () => {
           <Icon name="file-text-o" size={40} color="#900" />
           <Text style={styles.buttonText} >Reportes</Text>
         </TouchableOpacity>
-
-        {/* Botón de Depositar */}
-        <TouchableOpacity style={styles.button} onPress={handleDepositar}>
-          <Icon name="rocket" size={40} color="#900" />
-          <Text style={styles.buttonText} >Depositar</Text>
-        </TouchableOpacity>
+        
       </View>
     </View>
   );
@@ -100,73 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2',
   },
 
-  // Estilo de la tarjeta
-  card: {
-    width: width * 0.9, // Usa un porcentaje del ancho de la pantalla
-    height: width * 0.6, // Ajusta la altura en proporción al ancho
-    borderRadius: 15,
-    overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 5,
-    elevation: 5,
-    //backgroundColor: "red",
-    marginTop: 120,
-  },
-  cardContent: {
-    // backgroundColor:'yellow',
-    position: 'absolute'
-  },
-  cardImage: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  cardImageStyle: {
-    borderRadius: 15,
-    resizeMode: 'contain', // Ajusta la imagen para que se vea completa sin recorte
-  },
-  cardInfoContainer: {
-    flex: 1,
-    width: width * 0.9, // Usa un porcentaje del ancho de la pantalla
-    // height: width * 0.6, // Ajusta la altura en proporción al ancho
-    // backgroundColor: 'purple',
-    //marginTop:100,
-    flexDirection: 'row',
-    height: width * 0.37,
-    justifyContent: 'space-around',
-    alignItems: 'flex-end',
-    // backgroundColor:'pink'
-  },
-
-  // Estilo de los elementos de la tarjeta
-  balanceTextContainer: {
-    alignSelf: 'flex-end',
-    marginRight: '7%',
-    height: width * 0.15,
-    // backgroundColor: 'purple',
-    justifyContent: 'flex-end'
-
-  },
-  balanceText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 24,
-  },
-  view_cardNumber_Holder: {
-  },
-  text_cardNumber_Holder: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  view_cvv_expire: {
-
-  },
-  text_cvv_expire: {
-    color: 'white',
-    fontSize: 16,
-  },
+  
 
   Buttoncontainer: {
     flexDirection: 'row', // Alinea los botones horizontalmente
